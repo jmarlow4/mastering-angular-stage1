@@ -3,7 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatCardModule } from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatIconModule, MatIconRegistry,
+  MatSidenavModule, MatToolbarModule
+} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -11,11 +15,17 @@ import { MatButtonModule, MatCardModule } from '@angular/material';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [
+    MatIconRegistry
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
