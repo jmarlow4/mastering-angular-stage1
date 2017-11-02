@@ -1,41 +1,4 @@
-<div class="app-container dark-theme">
+<div class="absolute-container dark-theme">
   <mat-toolbar>TodoIt</mat-toolbar>
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav
-                 [mode]="'side'"
-                 [opened]="true"
-                 class="example-sidenav">
-      Jolly good!
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <button md-button
-              mat-raised-button
-              (click)="sidenav.toggle()"
-              class="sidenav-toggle-btn"
-              color="primary">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <div style="text-align:center">
-        <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-      </div>
-      <div fxLayout="column"
-           fxLayoutAlign="space-evenly center">
-        <mat-card fxLayoutGap="20px"
-                  style="width:300px; min-width:300px;">
-        
-          <mat-card-title>Card Header</mat-card-title>
-          <mat-card-subtitle>Card subtitle</mat-card-subtitle>
-  
-          <mat-card-content>
-            some content
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-raised-button color="primary">
-              Click me!
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <router-outlet></router-outlet>
 </div>

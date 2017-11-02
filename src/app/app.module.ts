@@ -8,13 +8,21 @@ import {
   MatSidenavModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AuthModule } from './modules/auth/auth.module';
+import { HomeComponent } from './pages/home/home.component';
+import { RouterModule } from '@angular/router';
+import { routes } from './routes';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
@@ -22,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatSidenavModule,
     FlexLayoutModule,
+    AuthModule.forRoot()
   ],
   providers: [
     MatIconRegistry

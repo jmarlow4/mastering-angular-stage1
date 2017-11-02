@@ -1,0 +1,20 @@
+.toolbar-offset {
+  top: 64px;
+}
+
+mat-sidenav-container {
+  height: 100%;
+
+  mat-sidenav {
+    min-width: 300px;
+  }
+
+  mat-sidenav-content {
+    .sidenav-toggle-btn {
+      min-width: 42px;
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom-right-radius: 5px;
+    }
+  }
+}
