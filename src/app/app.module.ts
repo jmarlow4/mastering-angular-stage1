@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MatButtonModule, MatCardModule, MatIconModule, MatIconRegistry,
-  MatSidenavModule, MatToolbarModule
+  MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule,
+  MatIconModule,
+  MatIconRegistry, MatInputModule, MatSidenavModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -27,7 +28,10 @@ import { routes } from './routes';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatToolbarModule,
+    MatExpansionModule,
     MatSidenavModule,
     FlexLayoutModule,
     AuthModule.forRoot()
