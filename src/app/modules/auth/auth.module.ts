@@ -6,8 +6,14 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { RouterModule } from '@angular/router';
-import { MatCardModule, MatTabsModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
+  MatProgressSpinnerModule,
+  MatTabsModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -17,7 +23,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ]),
     FlexLayoutModule,
     MatTabsModule,
-    MatCardModule
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     LoginFormComponent,
