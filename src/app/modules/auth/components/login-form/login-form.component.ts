@@ -22,7 +22,7 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['', Validators.compose([
+      email: ['', Validators.compose([
         Validators.required,
         this.isEmail
       ])],
@@ -32,7 +32,8 @@ export class LoginFormComponent implements OnInit {
 
   onLogin() {
     this.working = true;
-    this.authService.login(this.loginForm.value);
+    this.authService.login(this.loginForm.value)
+      .subscribe( user => console.log('login user', user));
   }
 
   isEmail(control: FormControl): {[s: string]: boolean} {

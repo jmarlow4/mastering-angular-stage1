@@ -1,4 +1,11 @@
-.login-card {
-  max-width: 600px;
-  margin-top: 40px;
+mat-card.login-card {
+  margin-top: 80px;
+    mat-tab-body .mat-tab-body-content {
+      overflow: hidden;
+      transition: height 225ms cubic-bezier(.4,0,.2,1);
+    }
+  .mat-tab-body {
+    max-width: 320px;
+    margin-top: 24px;
+  }
 }

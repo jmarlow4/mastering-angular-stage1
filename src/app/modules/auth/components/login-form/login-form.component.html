@@ -1,4 +1,4 @@
-<div *ngIf="!working" class="login-form">
+<div *ngIf="!working">
   <form [formGroup]="loginForm"
         (ngSubmit)="onLogin()"
         class="text-centered">
@@ -7,7 +7,7 @@
       <input
         matInput
         placeholder="Email"
-        formControlName="username"
+        formControlName="email"
         class="input"
         type="email"/>
     </mat-form-field>
@@ -29,6 +29,8 @@
     </button>
   </form>
 </div>
-<div *ngIf="working">
-  <mat-spinner strokeWidth="5" class="center mt-login-spinner"></mat-spinner>
+<div *ngIf="working"
+     fxLayout="column"
+     fxLayoutAlign="space-evenly center">
+  <mat-spinner diameter="20"></mat-spinner>
 </div>

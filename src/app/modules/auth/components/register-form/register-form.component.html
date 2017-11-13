@@ -1,3 +1,53 @@
-<p>
-  register-form works!
-</p>
+<div *ngIf="!working" class="login-form">
+  <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+    
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        placeholder="Email"
+        formControlName="email"
+        class="input"
+        type="email">
+    </mat-form-field>
+    <div class="app-input-message"
+         *ngIf="!signupForm.get('email').pristine
+          && signupForm.get('email').errors != null
+          && signupForm.get('email').errors['noEmail']">
+      Invalid email address
+    </div>
+    
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        placeholder="Password"
+        formControlName="password"
+        class="input"
+        type="password">
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        placeholder="Confirm password"
+        formControlName="confirmPassword"
+        class="input"
+        type="password">
+    </mat-form-field>
+    <div class="app-input-message"
+         *ngIf="!signupForm.get('confirmPassword').pristine
+          && signupForm.get('confirmPassword').errors != null
+          && signupForm.get('confirmPassword').errors['passwordsNotMatch']">
+      Passwords don't match
+    </div>
+    <button mat-raised-button color="accent"
+            class="button is-primary is-fullwidth"
+            type="submit"
+            [disabled]="!signupForm.valid">
+      <mat-icon>check</mat-icon>
+      <span>Sign Up</span>
+    </button>
+  </form>
+</div>
+<div *ngIf="working">
+  <mat-spinner class="center"></mat-spinner>
+</div>
