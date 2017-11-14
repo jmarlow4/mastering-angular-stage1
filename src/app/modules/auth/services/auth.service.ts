@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/observable/throw';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 
@@ -30,11 +31,15 @@ export class AuthService {
   }
 
   login(user: IntUser): Observable<any> {
-    return of(user).map(res => {
-      console.log('resolve', res);
-      return res;
-    })
+    return of(user)
       .delay(1000)
+      .map(res => {
+        if (res.email === this.dummyUser.email) {
+          return res;
+        } else {
+          throw Observable.throw('user not found!');
+        }
+      })
       .take(1);
   }
 

@@ -33,7 +33,8 @@ export class LoginFormComponent implements OnInit {
   onLogin() {
     this.working = true;
     this.authService.login(this.loginForm.value)
-      .subscribe( user => console.log('login user', user));
+      .subscribe( user => console.log('login user', user),
+          error => console.log('error on login!', error));
   }
 
   isEmail(control: FormControl): {[s: string]: boolean} {
