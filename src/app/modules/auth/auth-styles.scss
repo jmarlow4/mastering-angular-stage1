@@ -1,0 +1,6 @@
+.snackbar-error {
+  background-color: mat-color($dark-warn);
+  .mat-simple-snackbar-action {
+    color: $black-87-opacity;
+  }
+}

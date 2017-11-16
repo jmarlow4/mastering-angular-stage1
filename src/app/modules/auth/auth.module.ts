@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import {
   MatButtonModule,
   MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatSnackBarModule,
   MatTabsModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatSnackBarModule,
     MatProgressSpinnerModule
   ],
   declarations: [

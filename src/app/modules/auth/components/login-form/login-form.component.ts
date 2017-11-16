@@ -4,6 +4,7 @@ import {
   Validators
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login-form',
@@ -14,10 +15,12 @@ export class LoginFormComponent implements OnInit {
 
   loginForm: FormGroup;
   working = false;
+  errorMessage: string = null;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    public snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -33,8 +36,17 @@ export class LoginFormComponent implements OnInit {
   onLogin() {
     this.working = true;
     this.authService.login(this.loginForm.value)
-      .subscribe( user => console.log('login user', user),
-          error => console.log('error on login!', error));
+      .subscribe(
+        user => console.log('login user', user),
+        error => {
+          console.log('error', error.error);
+          this.working = false;
+          this.snackbar.open(
+            'ERROR: ' + error.error,
+            'dismiss',
+            {duration: 4000, extraClasses: ['snackbar-error']});
+        }
+      );
   }
 
   isEmail(control: FormControl): {[s: string]: boolean} {
