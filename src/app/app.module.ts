@@ -6,7 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule,
   MatIconModule,
-  MatIconRegistry, MatInputModule, MatSidenavModule, MatToolbarModule
+  MatIconRegistry, MatInputModule, MatMenuModule, MatSidenavModule,
+  MatToolbarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -28,6 +29,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatCardModule,
+    MatMenuModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,

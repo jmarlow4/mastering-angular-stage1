@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import {
   MatButtonModule,
   MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
+  MatMenuModule,
   MatProgressSpinnerModule, MatSnackBarModule,
   MatTabsModule
 } from '@angular/material';
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     MatInputModule,
     MatIconModule,
+    MatMenuModule,
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,

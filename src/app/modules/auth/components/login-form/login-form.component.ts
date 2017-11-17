@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -20,7 +21,8 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    public snackbar: MatSnackBar
+    public snackbar: MatSnackBar,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -37,9 +39,14 @@ export class LoginFormComponent implements OnInit {
     this.working = true;
     this.authService.login(this.loginForm.value)
       .subscribe(
-        user => console.log('login user', user),
+        user => {
+          this.working = false;
+          this.snackbar.open(
+            'Logged in as ' + user.email,
+            'dismiss',
+            {duration: 4000, extraClasses: ['snackbar-success']});
+        },
         error => {
-          console.log('error', error.error);
           this.working = false;
           this.snackbar.open(
             'ERROR: ' + error.error,
@@ -51,7 +58,7 @@ export class LoginFormComponent implements OnInit {
 
   isEmail(control: FormControl): {[s: string]: boolean} {
     if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/)) {
-      return {noEmail: true};
+      return {isEmail: false};
     }
   }
 

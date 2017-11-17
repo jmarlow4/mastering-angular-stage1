@@ -1,1 +1,10 @@
-<mat-toolbar>TodoIt</mat-toolbar>
+<mat-toolbar class="todoit-toolbar">
+  <span>TodoIt</span>
+  <span class="toolbar-spacer"></span>
+  <button *ngIf="authenticated | async" mat-icon-button [matMenuTriggerFor]="toolbarMenu">
+    <mat-icon class="toolbar-menu">more_vert</mat-icon>
+  </button>
+  <mat-menu #toolbarMenu="matMenu">
+    <button mat-menu-item (click)="onLogout()">Log out</button>
+  </mat-menu>
+</mat-toolbar>

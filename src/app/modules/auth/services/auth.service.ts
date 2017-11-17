@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface IntUser {
   email: string;
@@ -20,7 +22,10 @@ export class AuthService {
     password: 'pw1234'
   };
 
-  constructor() {
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {
     this._authState.next({
       email: localStorage.getItem('auth')
     });
@@ -30,33 +35,44 @@ export class AuthService {
     return this._authState;
   }
 
+  get authenticated() {
+    return this._authState.map( authState => !!authState.email );
+  }
+
   login(user: IntUser): Observable<any> {
     return of(user)
       .delay(1000)
       .map(res => {
         if (res.email === this.dummyUser.email) {
-          return res;
+          if (res.password === this.dummyUser.password) {
+            this._authState.next({email: res.email});
+            localStorage.setItem('auth', res.email);
+            return res;
+          } else {
+            throw Observable.throw('Incorrect password!');
+          }
         } else {
-          throw Observable.throw('user not found!');
+          throw Observable.throw('User not found!');
         }
       })
-      .take(1);
+      .do( authState => {
+        this._router.navigate(['/']);
+      });
   }
 
   createUser(user: IntUser) {
-    return new Observable(resolve => {
-      console.log('resolve', resolve);
-      return resolve;
-    })
+    return of(user)
       .delay(1000)
-      .take(1);
+      .map(res => {
+        // do stuff here
+        return res;
+      });
   }
 
   logout() {
-
     localStorage.removeItem('auth');
-
-    this._authState.next(null);
+    this._authState.next({email: null});
+    this._router.navigate(['/login']);
   }
 
 }
