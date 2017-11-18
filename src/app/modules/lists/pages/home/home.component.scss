@@ -12,7 +12,6 @@ mat-sidenav-container {
   mat-sidenav-content {
     .sidenav-toggle-btn {
       min-width: 42px;
-      box-shadow: none;
       border-radius: 0;
       border-bottom-right-radius: 5px;
     }
@@ -20,11 +19,12 @@ mat-sidenav-container {
 }
 
 mat-expansion-panel {
-  width: 70%;
+  width: 60%;
+  min-width: 400px;
   margin-bottom: 1px;
   transition: width 225ms cubic-bezier(.4,0,.2,1);
   &.mat-expanded {
-    width: 75%;
+    width: 70%;
     margin: 15px 0;
     &:first-child {
       margin-top: 0;

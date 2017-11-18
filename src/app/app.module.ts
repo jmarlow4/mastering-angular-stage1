@@ -12,7 +12,6 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthModule } from './modules/auth/auth.module';
-import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -21,23 +20,16 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
   declarations: [
     AppComponent,
     NotFoundComponent,
-    HomeComponent,
     ToolbarComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
-    MatCardModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatToolbarModule,
-    MatExpansionModule,
-    MatSidenavModule,
-    FlexLayoutModule,
     AuthModule.forRoot()
   ],
   providers: [
