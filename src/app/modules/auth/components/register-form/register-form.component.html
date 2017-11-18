@@ -1,5 +1,5 @@
 <div *ngIf="!working" class="login-form">
-  <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSignUp()">
     
     <mat-form-field class="full-width">
       <input
@@ -8,13 +8,13 @@
         formControlName="email"
         class="input"
         type="email">
+      <mat-error class="app-input-message"
+           *ngIf="!registerForm.get('email').pristine
+            && registerForm.get('email').errors != null
+            && registerForm.get('email').errors['noEmail']">
+        Invalid email address
+      </mat-error>
     </mat-form-field>
-    <div class="app-input-message"
-         *ngIf="!signupForm.get('email').pristine
-          && signupForm.get('email').errors != null
-          && signupForm.get('email').errors['noEmail']">
-      Invalid email address
-    </div>
     
     <mat-form-field class="full-width">
       <input
@@ -32,22 +32,23 @@
         formControlName="confirmPassword"
         class="input"
         type="password">
+      <mat-error *ngIf="!registerForm.get('confirmPassword').pristine
+          && registerForm.get('confirmPassword').errors != null
+          && registerForm.get('confirmPassword').errors['passwordsNotMatch']">
+        Passwords don't match
+      </mat-error>
     </mat-form-field>
-    <div class="app-input-message"
-         *ngIf="!signupForm.get('confirmPassword').pristine
-          && signupForm.get('confirmPassword').errors != null
-          && signupForm.get('confirmPassword').errors['passwordsNotMatch']">
-      Passwords don't match
-    </div>
-    <button mat-raised-button color="accent"
+    <button mat-raised-button color="primary"
             class="button is-primary is-fullwidth"
             type="submit"
-            [disabled]="!signupForm.valid">
+            [disabled]="!registerForm.valid">
       <mat-icon>check</mat-icon>
       <span>Sign Up</span>
     </button>
   </form>
 </div>
-<div *ngIf="working">
-  <mat-spinner class="center"></mat-spinner>
+<div *ngIf="working"
+     fxLayout="column"
+     fxLayoutAlign="space-evenly center">
+  <mat-spinner [strokeWidth]="5"></mat-spinner>
 </div>

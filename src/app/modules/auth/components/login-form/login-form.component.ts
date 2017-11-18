@@ -6,60 +6,52 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { AuthForm } from '../../classes/auth-form';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent extends AuthForm implements OnInit {
 
   loginForm: FormGroup;
   working = false;
-  errorMessage: string = null;
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    public snackbar: MatSnackBar,
-    private _router: Router
-  ) { }
+    private _fb: FormBuilder,
+    private _authService: AuthService,
+    public snackbar: MatSnackBar
+  ) { super(snackbar); }
 
   ngOnInit() {
-    this.loginForm = this.fb.group({
-      email: ['', Validators.compose([
-        Validators.required,
-        this.isEmail
-      ])],
+    this.loginForm = this._fb.group(
+      { email: ['', Validators.compose(
+        [
+          Validators.required,
+            this.isEmail
+        ])],
       password: ['', Validators.required],
     });
   }
 
   onLogin() {
     this.working = true;
-    this.authService.login(this.loginForm.value)
+    this._authService.login(this.loginForm.value)
       .subscribe(
         user => {
           this.working = false;
-          this.snackbar.open(
+          this.openSnackbar(
             'Logged in as ' + user.email,
-            'dismiss',
-            {duration: 4000, extraClasses: ['snackbar-success']});
+            'snackbar-success');
         },
         error => {
           this.working = false;
-          this.snackbar.open(
+          this.openSnackbar(
             'ERROR: ' + error.error,
-            'dismiss',
-            {duration: 4000, extraClasses: ['snackbar-error']});
+            'snackbar-error');
         }
       );
-  }
-
-  isEmail(control: FormControl): {[s: string]: boolean} {
-    if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/)) {
-      return {isEmail: false};
-    }
   }
 
 }

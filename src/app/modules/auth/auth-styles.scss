@@ -1,13 +1,13 @@
 .snackbar-error {
   background-color: mat-color($dark-warn);
   .mat-simple-snackbar-action {
-    color: $black-87-opacity;
+    color: $white-50-opacity;
   }
 }
 
 .snackbar-success {
   background-color: mat-color($dark-primary);
   .mat-simple-snackbar-action {
-    color: $white-87-opacity;
+    color: $white-50-opacity;
   }
 }

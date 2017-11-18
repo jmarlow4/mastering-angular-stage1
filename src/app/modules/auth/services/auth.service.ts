@@ -64,8 +64,16 @@ export class AuthService {
     return of(user)
       .delay(1000)
       .map(res => {
-        // do stuff here
-        return res;
+        if (res.email !== this.dummyUser.email) {
+          this._authState.next({email: res.email});
+          localStorage.setItem('auth', res.email);
+          return res;
+        } else {
+          throw Observable.throw('Email already in use!');
+        }
+      })
+      .do( authState => {
+        this._router.navigate(['/']);
       });
   }
 
