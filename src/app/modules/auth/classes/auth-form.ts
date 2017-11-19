@@ -1,5 +1,4 @@
 import { FormControl } from '@angular/forms';
-import { IntUser } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 
 export class AuthForm {

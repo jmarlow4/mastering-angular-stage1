@@ -10,6 +10,7 @@
         formControlName="email"
         class="input"
         type="email"/>
+      <mat-hint>jdoe@domain.com</mat-hint>
       <mat-error *ngIf="!loginForm.controls.email.hasError('isEmail') && !loginForm.controls.email.hasError('required')">
         Please enter a valid email address
       </mat-error>
@@ -25,8 +26,10 @@
         formControlName="password"
         class="input"
         type="password"/>
+      <mat-hint>pw1234</mat-hint>
     </mat-form-field>
-    
+    <br/>
+    <br/>
     <button mat-raised-button color="primary"
             type="submit"
             [disabled]="!loginForm.valid">

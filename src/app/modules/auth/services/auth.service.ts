@@ -7,11 +7,7 @@ import 'rxjs/add/observable/throw';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 import { ActivatedRoute, Router } from '@angular/router';
-
-export interface IntUser {
-  email: string;
-  password?: string;
-}
+import { IntUser } from '../interfaces/int-user';
 
 @Injectable()
 export class AuthService {

@@ -8,6 +8,8 @@ import {
   MatSidenavModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { ListItemComponent } from './components/list-item/list-item.component';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
   imports: [
@@ -22,6 +24,6 @@ import { RouterModule } from '@angular/router';
       { path: '', component: HomeComponent },
     ]),
   ],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent, ListItemComponent, TaskComponent]
 })
 export class ListsModule {}
