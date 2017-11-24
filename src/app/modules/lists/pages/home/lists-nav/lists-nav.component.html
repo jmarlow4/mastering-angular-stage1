@@ -1,0 +1,5 @@
+<mat-list>
+  <mat-list-item *ngFor="let list of lists$ | async">
+    <button mat-button>{{list.title}}</button>
+  </mat-list-item>
+</mat-list>
