@@ -16,4 +16,8 @@ export class ListsService {
     return this.listsData$;
   }
 
+  retrieveList(id: number) {
+    return this.lists$.map( lists => lists[id]);
+  }
+
 }

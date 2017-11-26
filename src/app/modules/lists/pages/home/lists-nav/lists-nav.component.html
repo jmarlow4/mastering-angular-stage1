@@ -1,5 +1,9 @@
-<mat-list>
-  <mat-list-item *ngFor="let list of lists$ | async">
-    <button mat-button>{{list.title}}</button>
+<mat-list class="lists-nav">
+  <mat-list-item *ngFor="let list of (lists$ | async); let i = index">
+    <a mat-button
+      [routerLink]="['/lists/' + i]"
+      [routerLinkActive]="'list-active'">
+      {{list.title}}
+    </a>
   </mat-list-item>
 </mat-list>

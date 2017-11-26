@@ -13,6 +13,7 @@ import { TaskComponent } from './components/task/task.component';
 import { ListsService } from './services/lists.service';
 import { TasksService } from './services/tasks.service';
 import { ListsNavComponent } from './pages/home/lists-nav/lists-nav.component';
+import { ListDetailComponent } from './pages/home/list-detail/list-detail.component';
 
 @NgModule({
   imports: [
@@ -25,10 +26,20 @@ import { ListsNavComponent } from './pages/home/lists-nav/lists-nav.component';
     MatListModule,
     FlexLayoutModule,
     RouterModule.forChild([
-      { path: '', component: HomeComponent },
+      {
+        path: '', component: HomeComponent, children: [
+          { path: ':listId', component: ListDetailComponent }
+        ]
+      },
     ]),
   ],
-  declarations: [HomeComponent, ListItemComponent, TaskComponent, ListsNavComponent],
+  declarations: [
+    HomeComponent,
+    ListItemComponent,
+    TaskComponent,
+    ListsNavComponent,
+    ListDetailComponent
+  ],
   providers: [ListsService, TasksService]
 })
 export class ListsModule {}
