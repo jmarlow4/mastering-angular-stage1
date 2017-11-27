@@ -13,6 +13,14 @@ export class TasksService {
   }
 
   get tasks$() {
-    return this.tasksData$;
+    return this.tasksData$.asObservable();
+  }
+
+  retrieveTasks(listId: number) {
+    return this.tasks$.map( allTasks => {
+      return allTasks.filter( task => {
+        return task.listId === +listId;
+      });
+    });
   }
 }

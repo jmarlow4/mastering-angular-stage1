@@ -22,10 +22,10 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('on init called for list-detail');
     this._route.params.subscribe( params => {
       this.routeListId = params['listId'];
-      this.tasks$ = this._tasksService.tasks$;
-      this._listsService.retrieveList(this.routeListId).take(1).subscribe(
+      this._tasksService.retrieveTasks(this.routeListId).take(1).subscribe(
         list => console.log(list)
       );
     });
