@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IntTask } from '../../../interfaces/int-task';
 import { TasksService } from '../../../services/tasks.service';
 import { ListsService } from '../../../services/lists.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-detail',
@@ -12,17 +13,22 @@ import { ListsService } from '../../../services/lists.service';
 export class ListDetailComponent implements OnInit {
 
   tasks$ = new BehaviorSubject<IntTask[]>(null);
+  routeListId: number;
 
   constructor(
     private _tasksService: TasksService,
     private _listsService: ListsService,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.tasks$ = this._tasksService.tasks$;
-    this._listsService.retrieveList(0).subscribe(
-      list => console.log(list)
-    );
+    this._route.params.subscribe( params => {
+      this.routeListId = params['listId'];
+      this.tasks$ = this._tasksService.tasks$;
+      this._listsService.retrieveList(this.routeListId).take(1).subscribe(
+        list => console.log(list)
+      );
+    });
   }
 
 }

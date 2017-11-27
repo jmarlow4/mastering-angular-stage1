@@ -8,12 +8,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntUser } from '../interfaces/int-user';
+import { usersData } from '../mocks/users-data';
 
 @Injectable()
 export class AuthService {
 
   private _authState: BehaviorSubject<IntUser> = new BehaviorSubject(null);
   dummyUser: IntUser = {
+    id: 0,
     email: 'jdoe@domain.com',
     password: 'pw1234'
   };
@@ -22,17 +24,15 @@ export class AuthService {
     private _router: Router,
     private _route: ActivatedRoute
   ) {
-    this._authState.next({
-      email: localStorage.getItem('auth')
-    });
+    this._authState.next(JSON.parse(localStorage.getItem('auth')));
   }
 
   get authState() {
-    return this._authState;
+    return this._authState.asObservable();
   }
 
   get authenticated() {
-    return this._authState.map( authState => !!authState.email );
+    return this._authState.map( authState => !!authState );
   }
 
   login(user: IntUser): Observable<any> {
@@ -41,8 +41,9 @@ export class AuthService {
       .map(res => {
         if (res.email === this.dummyUser.email) {
           if (res.password === this.dummyUser.password) {
-            this._authState.next({email: res.email});
-            localStorage.setItem('auth', res.email);
+            const authObject = { email: res.email, id: usersData.indexOf(res.email) };
+            this._authState.next(authObject);
+            localStorage.setItem('auth', JSON.stringify(authObject));
             return res;
           } else {
             throw Observable.throw('Incorrect password!');
@@ -61,8 +62,9 @@ export class AuthService {
       .delay(1000)
       .map(res => {
         if (res.email !== this.dummyUser.email) {
-          this._authState.next({email: res.email});
-          localStorage.setItem('auth', res.email);
+          const authObject = { email: res.email, id: 1 };
+          this._authState.next(authObject);
+          localStorage.setItem('auth', JSON.stringify(authObject));
           return res;
         } else {
           throw Observable.throw('Email already in use!');
@@ -75,7 +77,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('auth');
-    this._authState.next({email: null});
+    this._authState.next(null);
     this._router.navigate(['/login']);
   }
 

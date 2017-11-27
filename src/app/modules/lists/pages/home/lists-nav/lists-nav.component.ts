@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListsService } from '../../../services/lists.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IntList } from '../../../interfaces/int-list';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-lists-nav',
@@ -10,7 +11,7 @@ import { IntList } from '../../../interfaces/int-list';
 })
 export class ListsNavComponent implements OnInit {
 
-  lists$ = new BehaviorSubject<IntList[]>(null);
+  lists$: Observable<IntList[]>;
 
   constructor(private _listsService: ListsService) { }
 

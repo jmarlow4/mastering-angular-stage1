@@ -4,4 +4,5 @@ export interface IntTask {
   completed: boolean;
   dateCreated: Date;
   dateCompleted: Date;
+  listId: number;
 }
