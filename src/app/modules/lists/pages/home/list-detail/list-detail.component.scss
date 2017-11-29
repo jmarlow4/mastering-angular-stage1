@@ -1,0 +1,15 @@
+mat-expansion-panel {
+  width: 60%;
+  min-width: 400px;
+  max-width: 750px;
+  margin-bottom: 1px;
+  transition: width 225ms cubic-bezier(.4,0,.2,1);
+  &.mat-expanded {
+    width: 70%;
+    max-width: 900px;
+    margin: 15px 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

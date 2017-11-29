@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IntTask } from '../../../interfaces/int-task';
 import { TasksService } from '../../../services/tasks.service';
 import { ListsService } from '../../../services/lists.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-list-detail',
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListDetailComponent implements OnInit {
 
-  tasks$ = new BehaviorSubject<IntTask[]>(null);
+  tasks$: Observable<IntTask[]>;
   routeListId: number;
 
   constructor(
@@ -25,9 +25,7 @@ export class ListDetailComponent implements OnInit {
     console.log('on init called for list-detail');
     this._route.params.subscribe( params => {
       this.routeListId = params['listId'];
-      this._tasksService.retrieveTasks(this.routeListId).take(1).subscribe(
-        list => console.log(list)
-      );
+      this.tasks$ = this._tasksService.retrieveTasks(this.routeListId);
     });
   }
 

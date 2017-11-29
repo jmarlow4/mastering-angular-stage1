@@ -1,21 +1,16 @@
-<mat-expansion-panel>
+<div fxLayout="column"
+     fxLayoutAlign="space-evenly center">
+<mat-expansion-panel *ngFor="let task of (tasks$ | async); let i = index">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Personal data
+      {{task.title}}
     </mat-panel-title>
-    <mat-panel-description>
-      Type your name and age
-    </mat-panel-description>
   </mat-expansion-panel-header>
-  
-  <mat-form-field>
-    <input matInput placeholder="First name">
-  </mat-form-field>
-  
-  <mat-form-field>
-    <input matInput placeholder="Age">
-  </mat-form-field>
+  <p>
+    {{task.description}}
+  </p>
   <mat-action-row>
     <button mat-raised-button color="accent">click me!</button>
   </mat-action-row>
 </mat-expansion-panel>
+</div>
