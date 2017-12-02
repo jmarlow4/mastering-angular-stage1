@@ -22,7 +22,6 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('on init called for list-detail');
     this._route.params.subscribe( params => {
       this.routeListId = params['listId'];
       this.tasks$ = this._tasksService.retrieveTasks(this.routeListId);

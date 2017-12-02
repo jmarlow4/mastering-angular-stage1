@@ -5,7 +5,7 @@ export const tasksData = [
     title: 'Wash Dishes',
     description: 'The dishes are stacking up and it\'s driving me crazy',
     completed: false,
-    dateCreated: new Date('Nov 13 2017 15:59:22'),
+    dateCreated: new Date('Nov 13 2017 10:59:22'),
     dateCompleted: null,
     listId: 0
   },
@@ -32,7 +32,7 @@ export const tasksData = [
     ' their help so they can learn to put their stuff away.',
     completed: true,
     dateCreated: new Date('Nov 12 2017 13:10:33'),
-    dateCompleted: new Date('Nov 18 2017 18:41:53'),
+    dateCompleted: new Date('Nov 18 2017 22:41:53'),
     listId: 0
   },
 

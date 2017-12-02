@@ -50,6 +50,9 @@ export class LoginFormComponent extends AuthForm implements OnInit {
           this.openSnackbar(
             'ERROR: ' + error.error,
             'snackbar-error');
+        },
+        () => {
+          console.info('login completed!');
         }
       );
   }
