@@ -15,6 +15,7 @@ export class ListDetailComponent implements OnInit {
 
   tasks$: Observable<IntTask[]>;
   routeListId: number;
+  currentTaskId: number;
 
   constructor(
     private _tasksService: TasksService,
@@ -27,6 +28,10 @@ export class ListDetailComponent implements OnInit {
       this.routeListId = params['listId'];
       this.tasks$ = this._tasksService.retrieveTasks(this.routeListId);
     });
+  }
+
+  taskOpened(eventId) {
+    this.currentTaskId = eventId;
   }
 
 }

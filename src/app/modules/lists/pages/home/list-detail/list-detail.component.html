@@ -3,6 +3,9 @@
      fxLayoutAlign="space-evenly center">
 
   <app-task fxLayoutAlign="center"
-            *ngFor="let task of (tasks$ | async)" [task]="task"></app-task>
+            *ngFor="let task of (tasks$ | async); let i = index"
+            [task]="task" [id]="i" [isOpened]="currentTaskId === i"
+            (taskOpened)="taskOpened($event)">
+  </app-task>
 
 </div>
