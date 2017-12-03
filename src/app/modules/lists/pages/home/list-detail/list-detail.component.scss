@@ -1,29 +1,11 @@
-mat-expansion-panel {
-  width: 60%;
-  min-width: 400px;
-  max-width: 750px;
-  margin-bottom: 1px;
-  transition: width 225ms cubic-bezier(.4, 0, .2, 1);
-  mat-panel-title {
-    height: 17px;
-  }
-  &.mat-expanded {
-    width: 70%;
-    max-width: 900px;
-    margin: 15px 0;
+.list-detail {
+  //width: 80%;
+  app-task {
+    width: 80%;
     &:first-child {
-      margin-top: 0;
+      mat-expansion-panel.mat-expanded {
+        margin-top: 0;
+      }
     }
-  }
-  .task-action-spacer {
-    flex: 1 1 auto;
-
-  }
-  .mat-action-row {
-    justify-content: left;
-  }
-  .task-dates {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 12px;
   }
 }

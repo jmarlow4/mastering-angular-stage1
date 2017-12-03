@@ -8,8 +8,7 @@ import {
   MatSidenavModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { ListItemComponent } from './components/list-item/list-item.component';
-import { TaskComponent } from './components/task/task.component';
+import { TaskComponent } from './pages/home/list-detail/task/task.component';
 import { ListsService } from './services/lists.service';
 import { TasksService } from './services/tasks.service';
 import { ListsNavComponent } from './pages/home/lists-nav/lists-nav.component';
@@ -35,7 +34,6 @@ import { ListDetailComponent } from './pages/home/list-detail/list-detail.compon
   ],
   declarations: [
     HomeComponent,
-    ListItemComponent,
     TaskComponent,
     ListsNavComponent,
     ListDetailComponent

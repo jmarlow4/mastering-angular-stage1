@@ -1,32 +1,8 @@
-<mat-accordion fxLayout="column"
+<div class="list-detail"
+     fxLayout="column"
      fxLayoutAlign="space-evenly center">
-  <mat-expansion-panel *ngFor="let task of (tasks$ | async); let i = index">
 
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{task.title}}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
+  <app-task fxLayoutAlign="center"
+            *ngFor="let task of (tasks$ | async)" [task]="task"></app-task>
 
-    {{task.description}}
-
-    <mat-action-row>
-      <div class="task-dates">
-        <div>Created: {{task.dateCreated | date:'short'}}</div>
-        <div *ngIf="task.completed">
-          Completed: {{task.dateCompleted | date:'short'}}
-        </div>
-      </div>
-      <div class="task-action-spacer"></div>
-      <button mat-raised-button color="accent">
-        <mat-icon>edit</mat-icon>
-      </button>
-      &nbsp;
-      <button mat-raised-button color="primary">
-        <mat-icon>done</mat-icon>
-      </button>
-    </mat-action-row>
-
-  </mat-expansion-panel>
-
-</mat-accordion>
+</div>

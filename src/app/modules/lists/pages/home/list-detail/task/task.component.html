@@ -1,0 +1,34 @@
+<mat-expansion-panel>
+  
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{task.title}}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  
+  {{task.description}}
+  
+  <mat-action-row>
+    
+    <div class="task-dates">
+      <div>
+        Created: {{task.dateCreated | date:'short'}}
+      </div>
+      <div *ngIf="task.dateCompleted">
+        Completed: {{task.dateCompleted | date:'short'}}
+      </div>
+    </div>
+    
+    <div class="task-action-spacer"></div>
+    
+    <button mat-raised-button color="accent">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-raised-button color="primary">
+      <mat-icon>done</mat-icon>
+    </button>
+  
+  </mat-action-row>
+
+</mat-expansion-panel>
+
