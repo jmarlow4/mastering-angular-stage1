@@ -22,7 +22,6 @@ export class TaskComponent implements OnInit  {
 
   ngOnInit() {
     this.editing.subscribe( (datum) => {
-      console.log('datum', datum);
     });
   }
 
