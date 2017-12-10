@@ -1,7 +1,7 @@
 <mat-expansion-panel (opened)="emitOpen(id)" [expanded]="isOpened">
 
   <mat-expansion-panel-header>
-    <mat-panel-title [ngSwitch]="editing | async">
+    <mat-panel-title [ngClass]="{'completed': !!task.dateCompleted}">
       {{task.title}}
     </mat-panel-title>
   </mat-expansion-panel-header>
@@ -27,7 +27,7 @@
       <div>
         Created: {{task.dateCreated | date:'short'}}
       </div>
-      <div *ngIf="task.dateCompleted">
+      <div *ngIf="!!task.dateCompleted">
         Completed: {{task.dateCompleted | date:'short'}}
       </div>
     </div>
@@ -41,8 +41,12 @@
         <mat-icon *ngSwitchCase="false">edit</mat-icon>
         <mat-icon *ngSwitchCase="true">save</mat-icon>
     </button>
-    <button mat-raised-button color="primary">
-      <mat-icon>done</mat-icon>
+    <button mat-raised-button
+            color="{{ !!task.dateCompleted ? 'accent' : 'primary' }}"
+            [ngSwitch]="!!task.dateCompleted"
+            (click)="completedHandler(task.dateCompleted)">
+      <mat-icon *ngSwitchCase="false">done</mat-icon>
+      <mat-icon *ngSwitchCase="true">undo</mat-icon>
     </button>
 
   </mat-action-row>

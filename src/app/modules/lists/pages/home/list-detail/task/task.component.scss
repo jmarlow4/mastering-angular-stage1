@@ -6,6 +6,10 @@ mat-expansion-panel {
   transition: width 225ms cubic-bezier(.4, 0, .2, 1);
   mat-panel-title {
     height: 17px;
+    &.completed {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: line-through;
+    }
   }
   &.mat-expanded {
     width: 70%;

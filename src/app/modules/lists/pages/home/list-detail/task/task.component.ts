@@ -29,4 +29,12 @@ export class TaskComponent implements OnInit  {
     this.taskOpened.emit(id);
   }
 
+  completedHandler(date: string) {
+    if (!date) {
+      this.task.dateCompleted = new Date();
+    } else {
+      this.task.dateCompleted = null;
+    }
+  }
+
 }
