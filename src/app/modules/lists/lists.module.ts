@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,6 +18,7 @@ import { ListDetailComponent } from './pages/home/list-detail/list-detail.compon
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MatExpansionModule,
     MatInputModule,
     MatButtonModule,

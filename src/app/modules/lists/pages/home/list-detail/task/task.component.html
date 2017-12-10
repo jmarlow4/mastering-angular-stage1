@@ -1,15 +1,28 @@
 <mat-expansion-panel (opened)="emitOpen(id)" [expanded]="isOpened">
-  
+
   <mat-expansion-panel-header>
-    <mat-panel-title>
+    <mat-panel-title [ngSwitch]="editing | async">
       {{task.title}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-  
-  {{task.description}}
-  
+
+  <mat-form-field class="full-width" *ngIf="editing | async">
+      <input matInput placeholder="Title" type="text"
+             (keydown)="$event.keyCode == 13 ? editing.next(false) : null"
+             [(ngModel)]="task.title">
+  </mat-form-field>
+
+  <div [ngSwitch]="editing | async">
+    <div *ngSwitchCase="false">{{task.description}}</div>
+    <mat-form-field *ngSwitchCase="true" class="full-width">
+      <input matInput placeholder="Description" type="textarea"
+             (keydown)="$event.keyCode == 13 ? editing.next(false) : null"
+             [(ngModel)]="task.description">
+    </mat-form-field>
+  </div>
+
   <mat-action-row>
-    
+
     <div class="task-dates">
       <div>
         Created: {{task.dateCreated | date:'short'}}
@@ -18,9 +31,9 @@
         Completed: {{task.dateCompleted | date:'short'}}
       </div>
     </div>
-    
+
     <div class="task-action-spacer"></div>
-    
+
     <button mat-raised-button
             color="{{ (editing | async) ? 'accent' : 'primary' }}"
             [ngSwitch]="editing | async"
@@ -31,7 +44,7 @@
     <button mat-raised-button color="primary">
       <mat-icon>done</mat-icon>
     </button>
-  
+
   </mat-action-row>
 
 </mat-expansion-panel>
