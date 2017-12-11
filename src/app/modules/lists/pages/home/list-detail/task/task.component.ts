@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IntTask } from '../../../../interfaces/int-task';
 import { MatAccordion } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit  {
+export class TaskComponent  {
 
   @Input() task: IntTask;
   @Input() id: number;
@@ -19,11 +19,6 @@ export class TaskComponent implements OnInit  {
   editing = new BehaviorSubject<boolean>(false);
 
   constructor() { }
-
-  ngOnInit() {
-    this.editing.subscribe( (datum) => {
-    });
-  }
 
   emitOpen(id: number) {
     this.taskOpened.emit(id);

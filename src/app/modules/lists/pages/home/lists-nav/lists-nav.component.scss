@@ -1,17 +1,17 @@
+.new-list-form {
+  padding: 2px 10px;
+}
+
 mat-list.lists-nav {
   padding-top: 0;
-  .mat-button {
-    width: 100%;
-    height: 100%;
-    text-align: left;
-  }
   ::ng-deep mat-list-item.mat-list-item {
     height: 36px;
     .mat-list-item-content {
       padding: 0;
     }
   }
-  .list-active {
-    background-color: rgba(0, 0, 0, 0.12);
-  }
+}
+
+app-list-link {
+  width: 100%;
 }

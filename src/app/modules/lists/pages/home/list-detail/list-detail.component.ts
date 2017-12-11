@@ -24,15 +24,17 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._route.params.subscribe( params => {
+    this._route.params.subscribe(params => {
       this.routeListId = params['listId'];
       this.currentTaskId = null;
+      this._listsService.setCurrentListId(this.routeListId);
       this.tasks$ = this._tasksService.retrieveTasks(this.routeListId);
     });
   }
 
   taskOpened(eventId) {
     this.currentTaskId = eventId;
+    this._listsService.setCurrentListId(eventId);
   }
 
 }

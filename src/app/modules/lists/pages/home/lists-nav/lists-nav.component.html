@@ -1,9 +1,17 @@
+<form class="new-list-form" (ngSubmit)="onSubmit(title)">
+  <mat-form-field class="full-width">
+    <button mat-button matSuffix mat-icon-button type="submit">
+      <mat-icon>add</mat-icon>
+    </button>
+    <input matInput #title type="text"
+           placeholder="Create a new list...">
+  </mat-form-field>
+</form>
 <mat-list class="lists-nav">
   <mat-list-item *ngFor="let list of (lists$ | async); let i = index">
-    <a mat-button
-      [routerLink]="['/lists/' + i]"
-      [routerLinkActive]="'list-active'">
-      {{list.title}}
-    </a>
+    <app-list-link
+      [list]="list"
+      [listId]="i"
+      [currentList]="currentListId$"></app-list-link>
   </mat-list-item>
 </mat-list>

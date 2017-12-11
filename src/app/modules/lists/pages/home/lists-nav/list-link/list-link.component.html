@@ -1,0 +1,15 @@
+<div class="list-link-content"
+     (mouseenter)="hovered = true"
+     (mouseleave)="hovered = false"
+     [routerLinkActive]="'list-active'">
+  <a mat-button class="link-button"
+     [routerLink]="['/lists/' + listId]">
+    <span>{{list.title}}</span>
+  </a>
+  <span class="spacer"></span>
+  <button *ngIf="hovered && (currentList | async) == listId"
+          mat-button class="list-remove"
+          (click)="deleteListHandler(listId)">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

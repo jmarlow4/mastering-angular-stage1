@@ -8,14 +8,15 @@ import { IntList } from '../interfaces/int-list';
 @Injectable()
 export class TasksService {
 
-  private tasksData$ = new BehaviorSubject<IntTask[]>(null);
+  private _tasksData$ = new BehaviorSubject<IntTask[]>(null);
+  private _tasksData = [...tasksData];
 
   constructor() {
-    this.tasksData$.next(tasksData);
+    this._tasksData$.next(this._tasksData);
   }
 
   get tasks$() {
-    return this.tasksData$.asObservable();
+    return this._tasksData$.asObservable();
   }
 
   retrieveTasks(listId: number): Observable<IntTask[]> {
@@ -24,5 +25,12 @@ export class TasksService {
         return task.listId === +listId;
       });
     });
+  }
+
+  deleteTasks(listId: number) {
+    this._tasksData = this._tasksData.filter(task => {
+      return task.listId !== listId;
+    });
+    this._tasksData$.next(this._tasksData);
   }
 }
