@@ -1,18 +1,18 @@
 export const listsData = {
   1: {
     title: 'Household',
-    userId: 0
+    tasks: [1, 2, 3, 4]
   },
   2: {
     title: 'Shopping List',
-    userId: 0
+    tasks: [5, 6, 7, 8, 9]
   },
   3: {
     title: 'Make Programming Course',
-    userId: 0
+    tasks: [10, 11, 12]
   },
   4: {
     title: 'Errands',
-    userId: 0
+    tasks: [13, 14, 15, 16]
   }
 };

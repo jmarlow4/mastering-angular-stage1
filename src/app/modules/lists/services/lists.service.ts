@@ -11,7 +11,7 @@ import { TasksService } from './tasks.service';
 export class ListsService {
 
   private _authState: IntUser;
-  private _listsData$ = new BehaviorSubject<IntList[]>(null);
+  private _listsData$ = new BehaviorSubject<IntList>(null);
   private _currentListId$ = new BehaviorSubject<number>(null);
 
   constructor(
