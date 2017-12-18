@@ -15,7 +15,7 @@ export class AuthService {
 
   private _authState: BehaviorSubject<IntUser> = new BehaviorSubject(null);
   dummyUser: IntUser = {
-    id: 0,
+    id: 1,
     email: 'jdoe@domain.com',
     password: 'pw1234'
   };
@@ -41,7 +41,7 @@ export class AuthService {
       .map(res => {
         if (res.email === this.dummyUser.email) {
           if (res.password === this.dummyUser.password) {
-            const authObject = { email: res.email, id: usersData.indexOf(res.email) };
+            const authObject = { email: res.email, id: 1 };
             this._authState.next(authObject);
             localStorage.setItem('auth', JSON.stringify(authObject));
             return res;
