@@ -1,7 +1,7 @@
-import { IntTask } from './int-task';
-
 export interface IntList {
+  id?: string;
   title: string;
-  tasks?: number[];
+  tasks?: string[];
   archived?: boolean;
+  userId?: string;
 }

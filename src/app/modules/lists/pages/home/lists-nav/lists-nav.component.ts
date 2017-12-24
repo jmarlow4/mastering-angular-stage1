@@ -26,10 +26,10 @@ export class ListsNavComponent implements OnInit {
   }
 
   onSubmit(list: HTMLInputElement): void {
-    const newListId = this._listsService.createList(list.value);
+    // const newListId = this._listsService.createList(list.value);
     list.value = '';
     list.blur();
-    this._router.navigate([`/lists/${newListId}`]);
+    // this._router.navigate([`/lists/${newListId}`]);
   }
 
 }

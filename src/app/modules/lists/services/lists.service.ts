@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IntList } from '../interfaces/int-list';
-import { listsData } from '../mocks/lists-data';
+// import { listsData } from '../mocks/lists-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from '../../auth/services/auth.service';
 import { IntUser } from '../../auth/interfaces/int-user';
 import { Observable } from 'rxjs/Observable';
 import { TasksService } from './tasks.service';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class ListsService {
@@ -18,7 +19,7 @@ export class ListsService {
     private _authService: AuthService,
     private _tasksService: TasksService
   ) {
-    this._listsData$.next(listsData);
+    // this._listsData$.next(listsData);
     this._authService.authState
       .subscribe(authState => {
         this._authState = authState;
@@ -26,11 +27,12 @@ export class ListsService {
   }
 
   get lists$(): Observable<IntList[]> {
-    return this._listsData$.map( allLists => {
-      return allLists.filter( list => {
-        return list.userId === this._authState.id;
-      });
-    });
+    // return this._listsData$.map( allLists => {
+    //   return allLists.filter( list => {
+    //     return list.userId === this._authState.id;
+    //   });
+    // });
+    return of([]);
   }
 
   get currentListId$() {
@@ -46,16 +48,17 @@ export class ListsService {
   }
 
   createList(listTitle: string): number {
-    const newListId = listsData.length;
-    listsData.push({title: listTitle, userId: this._authState.id});
-    this._listsData$.next(listsData);
-    return newListId;
+    // const newListId = listsData.length;
+    // listsData.push({title: listTitle, userId: this._authState.id});
+    // this._listsData$.next(listsData);
+    // return newListId;
+    return 1;
   }
 
   deleteList(listId: number) {
-    this._tasksService.deleteTasks(listId);
-    listsData.splice(listId, 1);
-    this._listsData$.next(listsData);
+    // this._tasksService.deleteTasks(listId);
+    // listsData.splice(listId, 1);
+    // this._listsData$.next(listsData);
   }
 
 }

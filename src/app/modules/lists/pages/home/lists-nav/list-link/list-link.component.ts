@@ -24,7 +24,7 @@ export class ListLinkComponent {
   onRoute: false;
 
   deleteListHandler(listId: number) {
-    this._listsService.deleteList(listId);
+    // this._listsService.deleteList(listId);
     this._router.navigate(['/lists']);
   }
 

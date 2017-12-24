@@ -9,10 +9,10 @@ import { IntList } from '../interfaces/int-list';
 export class TasksService {
 
   private _tasksData$ = new BehaviorSubject<IntTask[]>(null);
-  private _tasksData = [...tasksData];
+  // private _tasksData = [...tasksData];
 
   constructor() {
-    this._tasksData$.next(this._tasksData);
+    // this._tasksData$.next(this._tasksData);
   }
 
   get tasks$() {
@@ -22,15 +22,15 @@ export class TasksService {
   retrieveTasks(listId: number): Observable<IntTask[]> {
     return this.tasks$.map( allTasks => {
       return allTasks.filter( task => {
-        return task.listId === +listId;
+        // return task.listId === +listId;
       });
     });
   }
 
   deleteTasks(listId: number) {
-    this._tasksData = this._tasksData.filter(task => {
-      return task.listId !== listId;
-    });
-    this._tasksData$.next(this._tasksData);
+    // this._tasksData = this._tasksData.filter(task => {
+    //   return task.listId !== listId;
+    // });
+    // this._tasksData$.next(this._tasksData);
   }
 }

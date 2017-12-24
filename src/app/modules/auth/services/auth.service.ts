@@ -8,14 +8,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntUser } from '../interfaces/int-user';
-import { usersData } from '../mocks/users-data';
+import * as shortid from 'shortid';
 
 @Injectable()
 export class AuthService {
 
   private _authState: BehaviorSubject<IntUser> = new BehaviorSubject(null);
   dummyUser: IntUser = {
-    id: 1,
+    id: 'eWRhpRV',
     email: 'jdoe@domain.com',
     password: 'pw1234'
   };
@@ -24,6 +24,7 @@ export class AuthService {
     private _router: Router,
     private _route: ActivatedRoute
   ) {
+    shortid.generate();
     this._authState.next(JSON.parse(localStorage.getItem('auth')));
   }
 
@@ -41,9 +42,9 @@ export class AuthService {
       .map(res => {
         if (res.email === this.dummyUser.email) {
           if (res.password === this.dummyUser.password) {
-            const authObject = { email: res.email, id: 1 };
-            this._authState.next(authObject);
-            localStorage.setItem('auth', JSON.stringify(authObject));
+            delete res.password;
+            this._authState.next(res);
+            localStorage.setItem('auth', JSON.stringify(res));
             return res;
           } else {
             throw Observable.throw('Incorrect password!');
@@ -62,7 +63,7 @@ export class AuthService {
       .delay(1000)
       .map(res => {
         if (res.email !== this.dummyUser.email) {
-          const authObject = { email: res.email, id: 1 };
+          const authObject = { email: res.email, id: shortid.generate(), lists: [] };
           this._authState.next(authObject);
           localStorage.setItem('auth', JSON.stringify(authObject));
           return res;
