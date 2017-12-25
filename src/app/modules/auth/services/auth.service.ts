@@ -9,6 +9,7 @@ import { of } from 'rxjs/observable/of';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntUser } from '../interfaces/int-user';
 import * as shortid from 'shortid';
+import { DexieService } from '../../../services/dexie.service';
 
 @Injectable()
 export class AuthService {

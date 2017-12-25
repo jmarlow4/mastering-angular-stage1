@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IntList } from '../../../interfaces/int-list';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { DexieService } from '../../../../../services/dexie.service';
+import Dexie from 'dexie';
 
 @Component({
   selector: 'app-lists-nav',
@@ -12,13 +14,22 @@ import { Router } from '@angular/router';
 })
 export class ListsNavComponent implements OnInit {
 
+  dbUsers: Dexie.Table<any, string>;
   lists$: Observable<IntList[]>;
   currentListId$: Observable<number>;
 
   constructor(
     private _listsService: ListsService,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private _db: DexieService
+  ) {
+    this.dbUsers = this._db.table('users');
+    console.log(this.dbUsers.schema);
+    this.dbUsers.put({email: 'derp1', password: 'herp1'})
+      .then((id) => {
+        console.log(id);
+      });
+  }
 
   ngOnInit() {
     this.lists$ = this._listsService.lists$;

@@ -15,6 +15,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { DexieService } from './services/dexie.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     AuthModule.forRoot()
   ],
   providers: [
-    MatIconRegistry
+    MatIconRegistry,
+    DexieService
   ],
   bootstrap: [AppComponent]
 })
