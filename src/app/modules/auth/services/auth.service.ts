@@ -8,7 +8,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntUser } from '../interfaces/int-user';
-import * as shortid from 'shortid';
 import { DexieService } from '../../../services/dexie.service';
 
 @Injectable()
@@ -16,7 +15,7 @@ export class AuthService {
 
   private _authState: BehaviorSubject<IntUser> = new BehaviorSubject(null);
   dummyUser: IntUser = {
-    id: 'eWRhpRV',
+    uuid: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462',
     email: 'jdoe@domain.com',
     password: 'pw1234'
   };
@@ -25,7 +24,6 @@ export class AuthService {
     private _router: Router,
     private _route: ActivatedRoute
   ) {
-    shortid.generate();
     this._authState.next(JSON.parse(localStorage.getItem('auth')));
   }
 
@@ -64,7 +62,7 @@ export class AuthService {
       .delay(1000)
       .map(res => {
         if (res.email !== this.dummyUser.email) {
-          const authObject = { email: res.email, id: shortid.generate(), lists: [] };
+          const authObject = { email: res.email, id: 'derp', lists: [] };
           this._authState.next(authObject);
           localStorage.setItem('auth', JSON.stringify(authObject));
           return res;

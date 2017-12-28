@@ -20,16 +20,8 @@ export class ListsNavComponent implements OnInit {
 
   constructor(
     private _listsService: ListsService,
-    private _router: Router,
-    private _db: DexieService
-  ) {
-    this.dbUsers = this._db.table('users');
-    console.log(this.dbUsers.schema);
-    this.dbUsers.put({email: 'derp1', password: 'herp1'})
-      .then((id) => {
-        console.log(id);
-      });
-  }
+    private _router: Router
+  ) {}
 
   ngOnInit() {
     this.lists$ = this._listsService.lists$;

@@ -1,6 +1,5 @@
 export interface IntUser {
-  id?: string;
+  uuid?: string;
   email: string;
   password?: string;
-  lists?: number[];
 }

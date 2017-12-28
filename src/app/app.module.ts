@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -35,8 +35,34 @@ import { DexieService } from './services/dexie.service';
   ],
   providers: [
     MatIconRegistry,
-    DexieService
+    DexieService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: onAppInit1,
+      multi: true,
+      deps: [DexieService]
+    },
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function onAppInit1(_dexieService: DexieService): () => Promise<any> {
+  let dbUsers = _dexieService.table('users');
+  dbUsers.put({email: 'dderp1', password: 'hherp1', uuid: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462'})
+    .then((id) => {
+      console.log(id);
+    });
+  return (): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      console.log(`${new Date()} onAppInit1:: inside promise`);
+
+      setTimeout(() => {
+        console.log(`${new Date()} onAppInit1:: inside setTimeout`);
+        // doing something
+        // ...
+        resolve();
+      }, 3000);
+    });
+  };
+}
