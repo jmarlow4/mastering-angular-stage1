@@ -3,6 +3,10 @@ import { listsData } from './modules/lists/mocks/lists-data';
 import { tasksData } from './modules/lists/mocks/tasks-data';
 
 export function initDefaultUser(_dexieService: DexieService) {
+  console.log('listsData', listsData);
+  for (const list of listsData) {
+    console.log('--list--', list);
+  }
   return () => {
     const dbUsers = _dexieService.table('users');
     const dbLists = _dexieService.table('lists');
@@ -15,9 +19,6 @@ export function initDefaultUser(_dexieService: DexieService) {
             password: 'pw1234',
             uuid: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462'
           });
-          for (const list of listsData) {
-            console.log('--list--', list);
-          }
           // for (const task of tasksData) {
           //   console.log('task', task);
           // }
