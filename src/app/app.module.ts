@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DexieService } from './services/dexie.service';
+import { initDefaultUser } from './users-dexie.initializer';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { DexieService } from './services/dexie.service';
     DexieService,
     {
       provide: APP_INITIALIZER,
-      useFactory: onAppInit1,
+      useFactory: initDefaultUser,
       multi: true,
       deps: [DexieService]
     },
@@ -46,23 +47,3 @@ import { DexieService } from './services/dexie.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-export function onAppInit1(_dexieService: DexieService): () => Promise<any> {
-  let dbUsers = _dexieService.table('users');
-  dbUsers.put({email: 'dderp1', password: 'hherp1', uuid: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462'})
-    .then((id) => {
-      console.log(id);
-    });
-  return (): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      console.log(`${new Date()} onAppInit1:: inside promise`);
-
-      setTimeout(() => {
-        console.log(`${new Date()} onAppInit1:: inside setTimeout`);
-        // doing something
-        // ...
-        resolve();
-      }, 3000);
-    });
-  };
-}

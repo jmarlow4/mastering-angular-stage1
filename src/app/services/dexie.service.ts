@@ -8,7 +8,9 @@ export class DexieService extends Dexie {
   constructor() {
     super('ToDoItDexie');
     this.version(1).stores({
-      users: '$$uuid, email, password'
+      users: '$$uuid, email, password',
+      lists: '$$uuid, title, archived, userId',
+      tasks: '$$uuid, title, description, dateCreated, dateCompleted, listId'
     });
     this.open();
     this.on('changes', (changes: IDatabaseChange[]) => {

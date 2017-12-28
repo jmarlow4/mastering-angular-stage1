@@ -1,22 +1,26 @@
-export const listsData = {
-  1: {
+export const listsData = [
+  {
+    uuid: 'c4bbc3e9-bc6b-4785-b6fa-590b651833f4',
     title: 'Household',
-    tasks: [1, 2, 3, 4],
+    userId: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462',
     archived: false
   },
-  2: {
+  {
+    uuid: 'f1278352-e7aa-4c6a-b019-332456a616f1',
     title: 'Shopping List',
-    tasks: [5, 6, 7, 8, 9],
+    userId: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462',
     archived: false
   },
-  3: {
+  {
+    uuid: 'e1030a5f-041a-41cc-832d-5a6309337645',
     title: 'Make Programming Course',
-    tasks: [10, 11, 12],
+    userId: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462',
     archived: false
   },
-  4: {
+  {
+    uuid: '8cfa9b48-f0ae-4e2b-ae2d-5c8fe2705215',
     title: 'Errands',
-    tasks: [13, 14, 15, 16],
+    userId: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462',
     archived: false
   }
-};
+];
