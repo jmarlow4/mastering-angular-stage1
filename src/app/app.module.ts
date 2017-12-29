@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DexieService } from './services/dexie.service';
-import { initDefaultUser } from './users-dexie.initializer';
+import { initDefaultUser } from './dexie-db.initializer';
 
 @NgModule({
   declarations: [

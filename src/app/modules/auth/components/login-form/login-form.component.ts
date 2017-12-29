@@ -41,6 +41,7 @@ export class LoginFormComponent extends AuthForm implements OnInit {
       .subscribe(
         user => {
           this.working = false;
+          console.log('user', user);
           this.openSnackbar(
             'Logged in as ' + user.email,
             'snackbar-success');

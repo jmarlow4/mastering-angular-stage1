@@ -6,9 +6,13 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/catch';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntUser } from '../interfaces/int-user';
 import { DexieService } from '../../../services/dexie.service';
+import Dexie from 'dexie';
+import { from } from 'rxjs/observable/from';
 
 @Injectable()
 export class AuthService {
@@ -19,12 +23,15 @@ export class AuthService {
     email: 'jdoe@domain.com',
     password: 'pw1234'
   };
+  private _dbUsers: Dexie.Table<any, any>;
 
   constructor(
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _dexieService: DexieService
   ) {
     this._authState.next(JSON.parse(localStorage.getItem('auth')));
+    this._dbUsers = this._dexieService.table('users');
   }
 
   get authState() {
@@ -35,21 +42,20 @@ export class AuthService {
     return this._authState.map( authState => !!authState );
   }
 
-  login(user: IntUser): Observable<any> {
-    return of(user)
+  login(loginUser: IntUser): Observable<any> {
+    return from(this._dbUsers.get({email: loginUser.email}))
       .delay(1000)
-      .map(res => {
-        if (res.email === this.dummyUser.email) {
-          if (res.password === this.dummyUser.password) {
-            delete res.password;
-            this._authState.next(res);
-            localStorage.setItem('auth', JSON.stringify(res));
-            return res;
-          } else {
-            throw Observable.throw('Incorrect password!');
-          }
+      .map( (dbUser: IntUser) => {
+        if (!!dbUser
+          && dbUser.email === loginUser.email
+          && dbUser.password === loginUser.password
+        ) {
+          delete dbUser.password;
+          this._authState.next(dbUser);
+          localStorage.setItem('auth', JSON.stringify(dbUser));
+          return dbUser;
         } else {
-          throw Observable.throw('User not found!');
+          throw Observable.throw('Incorrect email or password!');
         }
       })
       .do( authState => {
