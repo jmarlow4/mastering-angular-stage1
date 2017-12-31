@@ -18,11 +18,7 @@ import { from } from 'rxjs/observable/from';
 export class AuthService {
 
   private _authState: BehaviorSubject<IntUser> = new BehaviorSubject(null);
-  dummyUser: IntUser = {
-    uuid: '7a01a19b-ea0a-4d4b-90c9-fa3d186d1462',
-    email: 'jdoe@domain.com',
-    password: 'pw1234'
-  };
+
   private _dbUsers: Dexie.Table<any, any>;
 
   constructor(
@@ -50,34 +46,42 @@ export class AuthService {
           && dbUser.email === loginUser.email
           && dbUser.password === loginUser.password
         ) {
-          delete dbUser.password;
-          this._authState.next(dbUser);
-          localStorage.setItem('auth', JSON.stringify(dbUser));
           return dbUser;
         } else {
-          throw Observable.throw('Incorrect email or password!');
+          throw Error('Incorrect email or password!');
         }
       })
-      .do( authState => {
+      .do( (authState: IntUser) => {
+        delete authState.password;
+        this._authState.next(authState);
+        localStorage.setItem('auth', JSON.stringify(authState));
         this._router.navigate(['/']);
       });
   }
 
-  createUser(user: IntUser) {
-    return of(user)
+  createUser(registerUser: IntUser) {
+    delete registerUser.confirmPassword;
+    return from(this._dbUsers.get({email: registerUser.email}))
       .delay(1000)
-      .map(res => {
-        if (res.email !== this.dummyUser.email) {
-          const authObject = { email: res.email, id: 'derp', lists: [] };
-          this._authState.next(authObject);
-          localStorage.setItem('auth', JSON.stringify(authObject));
-          return res;
+      .map( (dbUser: IntUser) => {
+        if (!dbUser) {
+          return true;
         } else {
-          throw Observable.throw('Email already in use!');
+          throw Error('Email already in use!');
         }
       })
-      .do( authState => {
+      .mergeMap( (canRegister: boolean) => {
+        if (canRegister) {
+          return from(this._dbUsers.add(registerUser));
+        }
+      })
+      .do( uuid => {
+        delete registerUser.password;
+        registerUser.uuid = uuid;
+        this._authState.next(registerUser);
+        localStorage.setItem('auth', JSON.stringify(registerUser));
         this._router.navigate(['/']);
+        return registerUser;
       });
   }
 

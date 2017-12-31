@@ -49,7 +49,7 @@ export class LoginFormComponent extends AuthForm implements OnInit {
         error => {
           this.working = false;
           this.openSnackbar(
-            'ERROR: ' + error.error,
+            error,
             'snackbar-error');
         },
         () => {

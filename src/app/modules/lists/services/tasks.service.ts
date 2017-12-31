@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IntTask } from '../interfaces/int-task';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { tasksData } from '../mocks/tasks-data';
 import { Observable } from 'rxjs/Observable';
 import { IntList } from '../interfaces/int-list';
 

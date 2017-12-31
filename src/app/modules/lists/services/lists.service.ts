@@ -1,38 +1,44 @@
 import { Injectable } from '@angular/core';
 import { IntList } from '../interfaces/int-list';
-// import { listsData } from '../mocks/lists-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from '../../auth/services/auth.service';
 import { IntUser } from '../../auth/interfaces/int-user';
 import { Observable } from 'rxjs/Observable';
 import { TasksService } from './tasks.service';
 import { of } from 'rxjs/observable/of';
+import { DexieService } from '../../../services/dexie.service';
+import Dexie from 'dexie';
 
 @Injectable()
 export class ListsService {
 
   private _authState: IntUser;
-  private _listsData$ = new BehaviorSubject<IntList>(null);
+  private _dbLists: Dexie.Table<any, any>;
+  private _listsData$ = new BehaviorSubject<IntList[]>(null);
   private _currentListId$ = new BehaviorSubject<number>(null);
 
   constructor(
     private _authService: AuthService,
-    private _tasksService: TasksService
+    private _tasksService: TasksService,
+    private _dexieService: DexieService
   ) {
-    // this._listsData$.next(listsData);
+    this._dbLists = this._dexieService.table('lists');
     this._authService.authState
       .subscribe(authState => {
         this._authState = authState;
+        this._dbLists
+          .where('userId')
+          .equals(authState.uuid)
+          .sortBy('uuid')
+          .then( (lists: IntList[]) => {
+            this._listsData$.next(lists);
+            console.log(lists);
+          });
       });
   }
 
   get lists$(): Observable<IntList[]> {
-    // return this._listsData$.map( allLists => {
-    //   return allLists.filter( list => {
-    //     return list.userId === this._authState.id;
-    //   });
-    // });
-    return of([]);
+    return this._listsData$.asObservable();
   }
 
   get currentListId$() {
