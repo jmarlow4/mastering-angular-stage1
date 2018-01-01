@@ -11,9 +11,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class TaskComponent  {
 
   @Input() task: IntTask;
-  @Input() id: number;
   @Input() isOpened: boolean;
-  @Output() taskOpened: EventEmitter<number> = new EventEmitter<number>();
+  @Output() taskOpened: EventEmitter<string> = new EventEmitter<string>();
 
   isEditing = false;
   editing = new BehaviorSubject<boolean>(false);
@@ -21,7 +20,7 @@ export class TaskComponent  {
   constructor() { }
 
   emitOpen(id: number) {
-    this.taskOpened.emit(id);
+    this.taskOpened.emit(this.task.uuid);
   }
 
   completedHandler(date: string) {

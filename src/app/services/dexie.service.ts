@@ -7,7 +7,7 @@ import { IDatabaseChange } from 'dexie-observable/api';
 export class DexieService extends Dexie {
   constructor() {
     super('ToDoItDexie');
-    this.version(1).stores({
+    this.version(2).stores({
       users: '$$uuid, email, password',
       lists: '$$uuid, title, archived, userId',
       tasks: '$$uuid, title, description, dateCreated, dateCompleted, listId'

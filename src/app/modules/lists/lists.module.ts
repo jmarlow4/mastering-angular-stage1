@@ -15,6 +15,7 @@ import { TasksService } from './services/tasks.service';
 import { ListsNavComponent } from './pages/home/lists-nav/lists-nav.component';
 import { ListDetailComponent } from './pages/home/list-detail/list-detail.component';
 import { ListLinkComponent } from './pages/home/lists-nav/list-link/list-link.component';
+import { CreateTaskFormComponent } from './pages/home/list-detail/create-task-form/create-task-form.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { ListLinkComponent } from './pages/home/lists-nav/list-link/list-link.co
     TaskComponent,
     ListsNavComponent,
     ListDetailComponent,
-    ListLinkComponent
+    ListLinkComponent,
+    CreateTaskFormComponent
   ],
   providers: [ListsService, TasksService]
 })

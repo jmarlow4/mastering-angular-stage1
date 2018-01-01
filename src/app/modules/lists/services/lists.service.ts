@@ -6,8 +6,10 @@ import { IntUser } from '../../auth/interfaces/int-user';
 import { Observable } from 'rxjs/Observable';
 import { TasksService } from './tasks.service';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/concatMap';
 import { DexieService } from '../../../services/dexie.service';
 import Dexie from 'dexie';
+import { from } from 'rxjs/observable/from';
 
 @Injectable()
 export class ListsService {
@@ -15,7 +17,7 @@ export class ListsService {
   private _authState: IntUser;
   private _dbLists: Dexie.Table<any, any>;
   private _listsData$ = new BehaviorSubject<IntList[]>(null);
-  private _currentListId$ = new BehaviorSubject<number>(null);
+  private _currentListId$ = new BehaviorSubject<string>(null);
 
   constructor(
     private _authService: AuthService,
@@ -25,15 +27,13 @@ export class ListsService {
     this._dbLists = this._dexieService.table('lists');
     this._authService.authState
       .subscribe(authState => {
-        this._authState = authState;
-        this._dbLists
-          .where('userId')
-          .equals(authState.uuid)
-          .sortBy('uuid')
-          .then( (lists: IntList[]) => {
-            this._listsData$.next(lists);
-            console.log(lists);
-          });
+        if (!!authState) {
+          this._authState = authState;
+          this.getListsFromDb(authState)
+            .then( (lists: IntList[]) => {
+              this._listsData$.next(lists);
+            });
+        }
       });
   }
 
@@ -41,30 +41,49 @@ export class ListsService {
     return this._listsData$.asObservable();
   }
 
+  getListsFromDb(authState): Promise<IntList[]> {
+    return this._dbLists
+      .where('userId')
+      .equals(authState.uuid)
+      .sortBy('uuid');
+  }
+
   get currentListId$() {
     return this._currentListId$.asObservable();
   }
 
-  setCurrentListId(listId: number) {
+  setCurrentListId(listId: string) {
     this._currentListId$.next(listId);
   }
 
-  retrieveList(listId: number): Observable<IntList> {
+  retrieveList(listId: string): Observable<IntList> {
     return this.lists$.map( list => list[listId] );
   }
 
-  createList(listTitle: string): number {
-    // const newListId = listsData.length;
-    // listsData.push({title: listTitle, userId: this._authState.id});
-    // this._listsData$.next(listsData);
-    // return newListId;
-    return 1;
+  createList(listTitle: string): any {
+    return from(this._dbLists.put({
+        title: listTitle,
+        userId: this._authState.uuid
+      })
+      .then( (newListId: string) => {
+        this.getListsFromDb(this._authState)
+          .then((lists: IntList[]) => {
+            this._listsData$.next(lists);
+          });
+        return newListId;
+      }));
   }
 
-  deleteList(listId: number) {
-    // this._tasksService.deleteTasks(listId);
-    // listsData.splice(listId, 1);
-    // this._listsData$.next(listsData);
+  deleteList(listId: string) {
+    return this._tasksService.deleteTasks(listId)
+      .mergeMap(() => from(this._dbLists.delete(listId)))
+      .do( () => {
+        this._listsData$.next(
+          this._listsData$
+            .getValue()
+            .filter(list => list.uuid !== listId)
+        );
+      });
   }
 
 }

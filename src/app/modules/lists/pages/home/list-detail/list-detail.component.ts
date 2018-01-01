@@ -14,8 +14,8 @@ import { Observable } from 'rxjs/Observable';
 export class ListDetailComponent implements OnInit {
 
   tasks$: Observable<IntTask[]>;
-  routeListId: number;
-  currentTaskId: number;
+  routeListId: string;
+  currentTaskId: string;
 
   constructor(
     private _tasksService: TasksService,

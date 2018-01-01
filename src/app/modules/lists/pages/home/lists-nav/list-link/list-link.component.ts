@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ListLinkComponent {
 
   @Input() list: IntList;
-  @Input() listId: number;
+  @Input() listId: string;
   @Input() currentList: Observable<number>;
 
   constructor(
@@ -23,8 +23,12 @@ export class ListLinkComponent {
   hovered: false;
   onRoute: false;
 
-  deleteListHandler(listId: number) {
-    // this._listsService.deleteList(listId);
+  deleteListHandler(listId: string) {
+    this._listsService.deleteList(listId).subscribe(
+      () => console.log('delete sub next'),
+      () => console.log('delete sub error'),
+      () => console.log('delete sub end'),
+    );
     this._router.navigate(['/lists']);
   }
 

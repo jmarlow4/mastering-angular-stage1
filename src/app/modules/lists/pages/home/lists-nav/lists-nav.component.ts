@@ -16,7 +16,7 @@ export class ListsNavComponent implements OnInit {
 
   dbUsers: Dexie.Table<any, string>;
   lists$: Observable<IntList[]>;
-  currentListId$: Observable<number>;
+  currentListId$: Observable<string>;
 
   constructor(
     private _listsService: ListsService,
@@ -29,10 +29,12 @@ export class ListsNavComponent implements OnInit {
   }
 
   onSubmit(list: HTMLInputElement): void {
-    // const newListId = this._listsService.createList(list.value);
+    this._listsService.createList(list.value)
+      .subscribe((newListId: string) => {
+        this._router.navigate([`/lists/${newListId}`]);
+      }, null, () => console.log('createList completed'));
     list.value = '';
     list.blur();
-    // this._router.navigate([`/lists/${newListId}`]);
   }
 
 }

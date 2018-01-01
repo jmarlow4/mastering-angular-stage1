@@ -1,9 +1,8 @@
 .list-detail {
-  //width: 80%;
   app-task {
     width: 80%;
-    &:first-child {
-      mat-expansion-panel.mat-expanded {
+    &:first-of-type {
+      .mat-expansion-panel.mat-expanded {
         margin-top: 0;
       }
     }
