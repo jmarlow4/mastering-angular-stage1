@@ -1,6 +1,8 @@
+$panel-width: 80%;
+
 .list-detail {
-  app-task {
-    width: 80%;
+  app-task, app-create-task-form {
+    width: $panel-width;
     &:first-of-type {
       .mat-expansion-panel.mat-expanded {
         margin-top: 0;

@@ -1,7 +1,13 @@
 <div class="list-detail"
      fxLayout="column"
      fxLayoutAlign="space-evenly center">
-  <app-create-task-form [currentListId]="routeListId"></app-create-task-form>
+
+  <app-create-task-form fxLayoutAlign="center"
+                        [currentListId]="routeListId"
+                        [isOpened]="currentTaskId === 'createForm'"
+                        (createFormOpened)="taskOpened($event)">
+  </app-create-task-form>
+
   <app-task fxLayoutAlign="center"
             *ngFor="let task of (tasks$ | async)"
             [task]="task" [isOpened]="currentTaskId === task.uuid"

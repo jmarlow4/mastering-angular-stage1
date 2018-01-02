@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,6 +21,7 @@ import { CreateTaskFormComponent } from './pages/home/list-detail/create-task-fo
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatExpansionModule,
     MatInputModule,
     MatButtonModule,

@@ -9,7 +9,7 @@ export class DexieService extends Dexie {
     super('ToDoItDexie');
     this.version(2).stores({
       users: '$$uuid, email, password',
-      lists: '$$uuid, title, archived, userId',
+      lists: '$$uuid, title, userId',
       tasks: '$$uuid, title, description, dateCreated, dateCompleted, listId'
     });
     this.open();

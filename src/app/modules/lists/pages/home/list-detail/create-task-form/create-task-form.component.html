@@ -1,3 +1,38 @@
-<p>
-  {{currentListId}}
-</p>
+<mat-expansion-panel (opened)="createFormOpened.emit('createForm')"
+                     [expanded]="isOpened">
+
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Create A Task...
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <form [formGroup]="createTaskForm"
+        id="ngForm"
+        (ngSubmit)="onSubmit(createTaskForm)">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Title"
+           type="text"
+           formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Description"
+              matTextareaAutosize
+              formControlName="description"
+              [matAutosizeMinRows]="3"
+              [matAutosizeMaxRows]="8"></textarea>
+  </mat-form-field>
+  </form>
+
+  <mat-action-row>
+    <div class="spacer"></div>
+    <button mat-raised-button
+            color="primary"
+            form="ngForm"
+            type="submit">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

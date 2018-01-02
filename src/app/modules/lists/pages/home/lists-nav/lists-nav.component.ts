@@ -32,7 +32,7 @@ export class ListsNavComponent implements OnInit {
     this._listsService.createList(list.value)
       .subscribe((newListId: string) => {
         this._router.navigate([`/lists/${newListId}`]);
-      }, null, () => console.log('createList completed'));
+      });
     list.value = '';
     list.blur();
   }
