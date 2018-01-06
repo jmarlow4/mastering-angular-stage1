@@ -48,4 +48,12 @@ export class TasksService {
         this._tasksData$.next(null);
       });
   }
+
+  createTask(task: IntTask) {
+    task.dateCreated = new Date();
+    task.dateCompleted = null;
+    this._dbTasks.put(task).then( () => {
+      this.retrieveTasks(task.listId);
+    });
+  }
 }

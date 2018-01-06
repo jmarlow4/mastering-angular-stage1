@@ -23,6 +23,10 @@ export class ListLinkComponent {
   hovered: false;
   onRoute: false;
 
+  setCurrentListId(listId: string) {
+    this._listsService.setCurrentListId(listId);
+  }
+
   deleteListHandler(listId: string) {
     this._listsService.deleteList(listId).subscribe(
       () => console.log('delete sub next'),

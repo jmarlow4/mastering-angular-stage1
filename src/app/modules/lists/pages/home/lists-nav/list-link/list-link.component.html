@@ -3,6 +3,7 @@
      (mouseleave)="hovered = false"
      [routerLinkActive]="'list-active'">
   <a mat-button class="link-button"
+     (click)="setCurrentListId(listId)"
      [routerLink]="['/lists/' + listId]">
     <span>{{list.title}}</span>
   </a>

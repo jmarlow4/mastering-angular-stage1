@@ -4,6 +4,7 @@ import { TasksService } from '../../../services/tasks.service';
 import { ListsService } from '../../../services/lists.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-list-detail',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ListDetailComponent implements OnInit {
 
-  tasks$: Observable<IntTask[]>;
+  tasks$ = new Subject<IntTask[]>();
   routeListId: string;
   currentTaskId: string;
 
@@ -28,13 +29,16 @@ export class ListDetailComponent implements OnInit {
       this.routeListId = params['listId'];
       this.currentTaskId = null;
       this._listsService.setCurrentListId(this.routeListId);
-      this.tasks$ = this._tasksService.retrieveTasks(this.routeListId);
+      this._tasksService.retrieveTasks(this.routeListId)
+        .subscribe(data => {
+          this.tasks$.next(data);
+        });
     });
+    this.tasks$.subscribe(tasks => console.log('tasks list detail', tasks));
   }
 
   taskOpened(eventId) {
     this.currentTaskId = eventId;
-    this._listsService.setCurrentListId(eventId);
   }
 
 }

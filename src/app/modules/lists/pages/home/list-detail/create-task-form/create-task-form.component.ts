@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IntTask } from '../../../../interfaces/int-task';
+import { TasksService } from '../../../../services/tasks.service';
 
 @Component({
   selector: 'app-create-task-form',
@@ -20,13 +22,15 @@ export class CreateTaskFormComponent implements OnInit {
     description: new FormControl()
   });
 
-  constructor() { }
+  constructor(private _tasksService: TasksService) { }
 
   ngOnInit() {
   }
 
   onSubmit(formGroup: FormGroup): void {
-    console.log('formGroup value', formGroup.value);
+    const task: IntTask = formGroup.value;
+    task.listId = this.currentListId;
+    this._tasksService.createTask(task);
     formGroup.reset();
   }
 }
