@@ -19,8 +19,12 @@ mat-expansion-panel {
   .mat-action-row {
     justify-content: left;
     .mat-raised-button {
-      min-width: 40px;
-      margin-right: 16px;
+      min-width: 24px;
+      padding: 0 8px;
+      margin-right: 8px;
+      &:last-child {
+        margin-right: 16px;
+      }
     }
   }
   .task-dates {

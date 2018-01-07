@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IntTask } from '../../../../interfaces/int-task';
 import { MatAccordion } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { TasksService } from '../../../../services/tasks.service';
 
 @Component({
   selector: 'app-task',
@@ -17,7 +18,9 @@ export class TaskComponent  {
   isEditing = false;
   editing = new BehaviorSubject<boolean>(false);
 
-  constructor() { }
+  constructor(
+    private _taskService: TasksService
+  ) { }
 
   emitOpen(id: number) {
     this.taskOpened.emit(this.task.uuid);
@@ -31,4 +34,7 @@ export class TaskComponent  {
     }
   }
 
+  deleteHandler(taskId: string) {
+    this._taskService.deleteTask(taskId);
+  }
 }

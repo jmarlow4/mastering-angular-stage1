@@ -53,6 +53,11 @@
       <mat-icon *ngSwitchCase="false">done</mat-icon>
       <mat-icon *ngSwitchCase="true">undo</mat-icon>
     </button>
+    <button mat-raised-button
+            color="warn"
+            (click)="deleteHandler(task.uuid)">
+      <mat-icon>close</mat-icon>
+    </button>
 
   </mat-action-row>
 

@@ -14,7 +14,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class ListDetailComponent implements OnInit {
 
-  tasks$ = new Subject<IntTask[]>();
+  tasks$: Observable<IntTask[]>;
   routeListId: string;
   currentTaskId: string;
 
@@ -25,16 +25,13 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.tasks$ = this._tasksService.tasks$;
     this._route.params.subscribe(params => {
       this.routeListId = params['listId'];
       this.currentTaskId = null;
-      this._listsService.setCurrentListId(this.routeListId);
-      this._tasksService.retrieveTasks(this.routeListId)
-        .subscribe(data => {
-          this.tasks$.next(data);
-        });
+      // this._listsService.setCurrentListId(this.routeListId);
+      this._tasksService.setCurrentTasks(this.routeListId);
     });
-    this.tasks$.subscribe(tasks => console.log('tasks list detail', tasks));
   }
 
   taskOpened(eventId) {

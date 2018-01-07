@@ -31,6 +31,7 @@ export class CreateTaskFormComponent implements OnInit {
     const task: IntTask = formGroup.value;
     task.listId = this.currentListId;
     this._tasksService.createTask(task);
+    this.isOpened = false;
     formGroup.reset();
   }
 }

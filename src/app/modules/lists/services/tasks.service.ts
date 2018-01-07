@@ -12,6 +12,7 @@ export class TasksService {
 
   private _dbTasks: Dexie.Table<any, any>;
   private _tasksData$ = new BehaviorSubject<IntTask[]>(null);
+  private _currentListId: string = null;
 
   constructor(
     private _dexieService: DexieService
@@ -23,15 +24,16 @@ export class TasksService {
     return this._tasksData$.asObservable();
   }
 
-  retrieveTasks(listId: string): Observable<IntTask[]> {
-    return from(this._dbTasks
+  setCurrentTasks(listId: string): Promise<IntTask[]> {
+    this._currentListId = listId;
+    return this._dbTasks
       .where('listId')
       .equals(listId)
       .sortBy('uuid')
       .then((tasks: IntTask[]) => {
         this._tasksData$.next(tasks);
         return tasks;
-      }));
+      });
   }
 
   deleteTasks(listId: string) {
@@ -53,7 +55,14 @@ export class TasksService {
     task.dateCreated = new Date();
     task.dateCompleted = null;
     this._dbTasks.put(task).then( () => {
-      this.retrieveTasks(task.listId);
+      this.setCurrentTasks(task.listId);
     });
+  }
+
+  deleteTask(taskId: string) {
+    this._dbTasks.delete(taskId)
+      .then( res => {
+        this.setCurrentTasks(this._currentListId);
+      });
   }
 }
