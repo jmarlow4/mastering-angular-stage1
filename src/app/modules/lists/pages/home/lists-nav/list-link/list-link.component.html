@@ -9,7 +9,7 @@
   </a>
   <span class="spacer"></span>
   <button *ngIf="hovered && (currentList | async) == listId"
-          mat-button class="list-remove"
+          mat-button class="list-link-action-button"
           (click)="deleteListHandler(listId)">
     <mat-icon>close</mat-icon>
   </button>

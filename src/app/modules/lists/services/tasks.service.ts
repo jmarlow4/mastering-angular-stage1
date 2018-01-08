@@ -29,7 +29,7 @@ export class TasksService {
     return this._dbTasks
       .where('listId')
       .equals(listId)
-      .sortBy('uuid')
+      .sortBy('order')
       .then((tasks: IntTask[]) => {
         this._tasksData$.next(tasks);
         return tasks;
@@ -54,6 +54,7 @@ export class TasksService {
   createTask(task: IntTask) {
     task.dateCreated = new Date();
     task.dateCompleted = null;
+    task.order = this._tasksData$.getValue().length;
     this._dbTasks.put(task).then( () => {
       this.setCurrentTasks(task.listId);
     });
@@ -64,5 +65,9 @@ export class TasksService {
       .then( res => {
         this.setCurrentTasks(this._currentListId);
       });
+  }
+
+  updateTask(task: IntTask) {
+    this._dbTasks.put(task);
   }
 }

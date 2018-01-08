@@ -45,7 +45,7 @@ export class ListsService {
     return this._dbLists
       .where('userId')
       .equals(authState.uuid)
-      .sortBy('uuid');
+      .sortBy('order');
   }
 
   get currentListId$() {
@@ -63,7 +63,8 @@ export class ListsService {
   createList(listTitle: string): any {
     return from(this._dbLists.put({
         title: listTitle,
-        userId: this._authState.uuid
+        userId: this._authState.uuid,
+        order: this._listsData$.getValue().length
       })
       .then( (newListId: string) => {
         this.getListsFromDb(this._authState)

@@ -29,7 +29,7 @@ export class ListDetailComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.routeListId = params['listId'];
       this.currentTaskId = null;
-      // this._listsService.setCurrentListId(this.routeListId);
+      this._listsService.setCurrentListId(this.routeListId);
       this._tasksService.setCurrentTasks(this.routeListId);
     });
   }

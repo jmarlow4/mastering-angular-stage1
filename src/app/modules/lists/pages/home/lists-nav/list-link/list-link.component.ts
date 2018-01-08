@@ -13,7 +13,7 @@ export class ListLinkComponent {
 
   @Input() list: IntList;
   @Input() listId: string;
-  @Input() currentList: Observable<number>;
+  @Input() currentList: Observable<string>;
 
   constructor(
     private _listsService: ListsService,

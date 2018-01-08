@@ -5,4 +5,5 @@ export interface IntTask {
   dateCreated: Date;
   dateCompleted: Date;
   listId?: string;
+  order?: number;
 }

@@ -21,7 +21,10 @@
               matTextareaAutosize
               formControlName="description"
               [matAutosizeMinRows]="3"
-              [matAutosizeMaxRows]="8"></textarea>
+              [matAutosizeMaxRows]="8"
+              (keydown)="$event.keyCode === 13 && !$event.shiftKey
+                  ? onSubmit(createTaskForm)
+                  : null"></textarea>
   </mat-form-field>
   </form>
 
