@@ -30,19 +30,21 @@ export class TaskComponent  {
   completedHandler(date: string) {
     if (!date) {
       this.task.dateCompleted = new Date();
+      this._taskService.updateTask(this.task);
     } else {
       this.task.dateCompleted = null;
+      this._taskService.updateTask(this.task);
     }
   }
 
-  deleteHandler(taskId: string) {
-    this._taskService.deleteTask(taskId);
+  deleteHandler() {
+    this._taskService.deleteTask(this.task.uuid);
   }
 
-  saveHandler(task: IntTask, editing: boolean) {
-    if (!!task.title && task.title !== '') {
+  saveHandler(editing: boolean) {
+    if (!!this.task.title && this.task.title !== '') {
       this.editing.next(editing);
-      this._taskService.updateTask(task);
+      this._taskService.updateTask(this.task);
     } else {
       this.snackbar.open(
         'Task title must have a value',

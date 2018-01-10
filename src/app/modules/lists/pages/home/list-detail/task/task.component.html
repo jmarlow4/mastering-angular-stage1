@@ -11,7 +11,7 @@
   <mat-form-field class="full-width" *ngIf="editing | async">
       <input matInput placeholder="Title" type="text"
              (keydown)="$event.keyCode == 13
-               ? saveHandler(task, false)
+               ? saveHandler(false)
                : null"
              [(ngModel)]="task.title">
   </mat-form-field>
@@ -24,7 +24,7 @@
                 [matAutosizeMinRows]="3"
                 [matAutosizeMaxRows]="8"
                 (keydown)="$event.keyCode === 13 && !$event.shiftKey
-                  ? saveHandler(task, false)
+                  ? saveHandler(false)
                   : null"
                 [(ngModel)]="task.description"></textarea>
     </mat-form-field>
@@ -46,7 +46,7 @@
     <button mat-raised-button
             color="{{ (editing | async) ? 'accent' : 'primary' }}"
             [ngSwitch]="editing | async"
-            (click)="saveHandler(task, !editing.getValue())">
+            (click)="saveHandler(!editing.getValue())">
         <mat-icon *ngSwitchCase="false">edit</mat-icon>
         <mat-icon *ngSwitchCase="true">save</mat-icon>
     </button>
@@ -59,7 +59,7 @@
     </button>
     <button mat-raised-button
             color="warn"
-            (click)="deleteHandler(task.uuid)">
+            (click)="deleteHandler()">
       <mat-icon>close</mat-icon>
     </button>
 
