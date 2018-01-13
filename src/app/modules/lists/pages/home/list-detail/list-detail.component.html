@@ -1,6 +1,7 @@
 <div class="list-detail"
      fxLayout="column"
-     fxLayoutAlign="space-evenly center">
+     fxLayoutAlign="space-evenly center"
+     dnd-sortable-container [sortableData]="tasks$ | async">
 
   <app-create-task-form fxLayoutAlign="center"
                         [currentListId]="routeListId"
@@ -9,7 +10,10 @@
   </app-create-task-form>
 
   <app-task fxLayoutAlign="center"
-            *ngFor="let task of (tasks$ | async)"
+            *ngFor="let task of (tasks$ | async); let i = index"
+            dnd-sortable [sortableIndex]="i"
+            (onDropSuccess)="handleDrop($event)"
+            [dragData]="(tasks$ | async)"
             [task]="task" [isOpened]="currentTaskId === task.uuid"
             (taskOpened)="taskOpened($event)">
   </app-task>

@@ -75,6 +75,10 @@ export class ListsService {
       }));
   }
 
+  updateList(list: IntList) {
+    return this._dbLists.put(list);
+  }
+
   deleteList(listId: string) {
     return this._tasksService.deleteTasks(listId)
       .mergeMap(() => from(this._dbLists.delete(listId)))

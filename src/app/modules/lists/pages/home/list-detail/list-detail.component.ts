@@ -38,4 +38,11 @@ export class ListDetailComponent implements OnInit {
     this.currentTaskId = eventId;
   }
 
+  handleDrop(allTasks: IntTask[]) {
+    for (const taskIndex in allTasks) {
+      allTasks[taskIndex].order = +taskIndex;
+      this._tasksService.updateTask(allTasks[taskIndex]);
+    }
+  }
+
 }

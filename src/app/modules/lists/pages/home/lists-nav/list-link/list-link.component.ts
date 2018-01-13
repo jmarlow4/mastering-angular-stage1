@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class ListLinkComponent {
 
   @Input() list: IntList;
-  @Input() listId: string;
   @Input() currentList: Observable<string>;
 
   constructor(

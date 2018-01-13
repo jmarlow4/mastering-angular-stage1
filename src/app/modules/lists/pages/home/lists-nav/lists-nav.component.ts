@@ -46,4 +46,11 @@ export class ListsNavComponent implements OnInit {
     }
   }
 
+  handleDrop(allLists: IntList[]) {
+    for (const listIndex in allLists) {
+      allLists[listIndex].order = +listIndex;
+      this._listsService.updateList(allLists[listIndex]);
+    }
+  }
+
 }

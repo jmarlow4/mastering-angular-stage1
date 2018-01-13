@@ -3,12 +3,12 @@
      (mouseleave)="hovered = false"
      [routerLinkActive]="'list-active'">
   <a mat-button class="link-button"
-     (click)="setCurrentListId(listId)"
-     [routerLink]="['/lists/' + listId]">
+     (click)="setCurrentListId(list.uuid)"
+     [routerLink]="['/lists/' + list.uuid]">
     <span>{{list.title}}</span>
   </a>
   <span class="spacer"></span>
-  <button *ngIf="hovered && (currentList | async) == listId"
+  <button *ngIf="hovered && (currentList | async) == list.uuid"
           mat-button class="list-link-action-button"
           (click)="deleteListHandler(listId)">
     <mat-icon>close</mat-icon>

@@ -23,7 +23,7 @@ export class TaskComponent  {
     public snackbar: MatSnackBar
   ) { }
 
-  emitOpen(id: number) {
+  emitOpen(id: string) {
     this.taskOpened.emit(this.task.uuid);
   }
 
@@ -51,5 +51,15 @@ export class TaskComponent  {
         'dismiss',
         {duration: 4000, extraClasses: ['snackbar-error']});
     }
+  }
+
+  handleClose() {
+    this.editing.next(false);
+    this.isOpened = false;
+  }
+
+  handleOpen() {
+    this.emitOpen(this.task.uuid);
+    this.isOpened = true;
   }
 }
