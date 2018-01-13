@@ -27,7 +27,7 @@ export class TaskComponent  {
     this.taskOpened.emit(this.task.uuid);
   }
 
-  completedHandler(date: string) {
+  completedHandler(date: Date | string) {
     if (!date) {
       this.task.dateCompleted = new Date();
       this._taskService.updateTask(this.task);
