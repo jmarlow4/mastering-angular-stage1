@@ -13,14 +13,12 @@ export class ListLinkComponent {
 
   @Input() list: IntList;
   @Input() currentList: Observable<string>;
+  hovered = false;
 
   constructor(
     private _listsService: ListsService,
     private _router: Router
   ) {}
-
-  hovered: false;
-  onRoute: false;
 
   setCurrentListId(listId: string) {
     this._listsService.setCurrentListId(listId);
